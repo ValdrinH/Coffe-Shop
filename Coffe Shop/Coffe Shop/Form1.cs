@@ -107,21 +107,21 @@ namespace Coffe_Shop
                     if (eventClicked)
                     {
                         txtTextCalculator.Text += "+";
-                        eventClicked = false; // Nëse është shtuar një numër më parë, përcaktoni numeriShtuar në false
+                        eventClicked = false; // NÃ«se Ã«shtÃ« shtuar njÃ« numÃ«r mÃ« parÃ«, pÃ«rcaktoni numeriShtuar nÃ« false
                     }
                     break;
                 case 3:
                     if (eventClicked)
                     {
                         txtTextCalculator.Text += "-";
-                        eventClicked = false; // Nëse është shtuar një numër më parë, përcaktoni numeriShtuar në false
+                        eventClicked = false; // NÃ«se Ã«shtÃ« shtuar njÃ« numÃ«r mÃ« parÃ«, pÃ«rcaktoni numeriShtuar nÃ« false
                     }
                     break;
                 case 4:
                     if (eventClicked)
                     {
                         txtTextCalculator.Text += "*";
-                        eventClicked = false; // Nëse është shtuar një numër më parë, përcaktoni numeriShtuar në false
+                        eventClicked = false; // NÃ«se Ã«shtÃ« shtuar njÃ« numÃ«r mÃ« parÃ«, pÃ«rcaktoni numeriShtuar nÃ« false
                     }
                     break;
                 case 5:
@@ -223,13 +223,13 @@ namespace Coffe_Shop
             {
                 Task.Run(() =>
                 {
-                    // Prisni derisa t� ngarkohen t� dh�nat
+                    // Prisni derisa të ngarkohen të dhënat
                     while (!dsh.isLoaded)
                     {
-                        Thread.Sleep(100); // Kontrollo �do 100 ms
+                        Thread.Sleep(100); // Kontrollo çdo 100 ms
                     }
 
-                    // Kjo pjes� e kodit duhet t� ekzekutohet n� thread-in kryesor UI
+                    // Kjo pjesë e kodit duhet të ekzekutohet në thread-in kryesor UI
                     dataGridView.Invoke(new Action(() =>
                     {
                         foreach (DataGridViewRow row in dataGridView.Rows)
