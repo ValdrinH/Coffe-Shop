@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
@@ -35,20 +36,30 @@
             DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
             pnlTop = new Panel();
-            picClose = new PictureBox();
+            pnlWarning = new Panel();
+            label4 = new Label();
+            panel2 = new Panel();
             Line = new Panel();
+            flowLayoutPanel3 = new FlowLayoutPanel();
+            lblDashboard = new Label();
+            lblCategory = new Label();
+            lblStoku = new Label();
+            lblReport = new Label();
+            lblPorosia = new Label();
+            lblTavolinatControl = new Label();
+            lblPuntoret = new Label();
+            lblTjera = new Label();
+            contextMenuStrip1 = new ContextMenuStrip(components);
+            testToolStripMenuItem = new ToolStripMenuItem();
+            porositEFshirjaToolStripMenuItem = new ToolStripMenuItem();
+            rrethSistemitToolStripMenuItem = new ToolStripMenuItem();
+            lokacioniIRuajtejsSeDokumentaveToolStripMenuItem = new ToolStripMenuItem();
+            picMinimize = new PictureBox();
+            picClose = new PictureBox();
             lblNgarkimi = new Label();
             lblPuntori = new Label();
-            label7 = new Label();
+            lblTime = new Label();
             label1 = new Label();
-            lblPorosia = new Label();
-            lblReport = new Label();
-            lblStoku = new Label();
-            lblCategory = new Label();
-            lblDashboard = new Label();
-            lblTjera = new Label();
-            lblPuntoret = new Label();
-            lblTavolinatControl = new Label();
             pnlKategorit = new Panel();
             BodyCategory = new FlowLayoutPanel();
             panel6 = new Panel();
@@ -95,11 +106,13 @@
             panel4 = new Panel();
             label10 = new Label();
             label3 = new Label();
-            pnlMenuDrop = new Panel();
-            label6 = new Label();
-            label5 = new Label();
-            label4 = new Label();
+            timer = new System.Windows.Forms.Timer(components);
             pnlTop.SuspendLayout();
+            pnlWarning.SuspendLayout();
+            panel2.SuspendLayout();
+            flowLayoutPanel3.SuspendLayout();
+            contextMenuStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)picMinimize).BeginInit();
             ((System.ComponentModel.ISupportInitialize)picClose).BeginInit();
             pnlKategorit.SuspendLayout();
             panel6.SuspendLayout();
@@ -110,31 +123,243 @@
             ((System.ComponentModel.ISupportInitialize)dataGridView).BeginInit();
             panel1.SuspendLayout();
             flowLayoutPanel2.SuspendLayout();
-            pnlMenuDrop.SuspendLayout();
             SuspendLayout();
             // 
             // pnlTop
             // 
+            pnlTop.Controls.Add(pnlWarning);
+            pnlTop.Controls.Add(panel2);
+            pnlTop.Controls.Add(flowLayoutPanel3);
+            pnlTop.Controls.Add(picMinimize);
             pnlTop.Controls.Add(picClose);
-            pnlTop.Controls.Add(Line);
             pnlTop.Controls.Add(lblNgarkimi);
             pnlTop.Controls.Add(lblPuntori);
-            pnlTop.Controls.Add(label7);
+            pnlTop.Controls.Add(lblTime);
             pnlTop.Controls.Add(label1);
-            pnlTop.Controls.Add(lblPorosia);
-            pnlTop.Controls.Add(lblReport);
-            pnlTop.Controls.Add(lblStoku);
-            pnlTop.Controls.Add(lblCategory);
-            pnlTop.Controls.Add(lblDashboard);
-            pnlTop.Controls.Add(lblTjera);
-            pnlTop.Controls.Add(lblPuntoret);
-            pnlTop.Controls.Add(lblTavolinatControl);
             pnlTop.Dock = DockStyle.Top;
             pnlTop.Location = new Point(0, 0);
             pnlTop.Name = "pnlTop";
             pnlTop.Size = new Size(1474, 80);
             pnlTop.TabIndex = 0;
             pnlTop.Paint += pnlTop_Paint;
+            // 
+            // pnlWarning
+            // 
+            pnlWarning.Anchor = AnchorStyles.None;
+            pnlWarning.BackColor = Color.Olive;
+            pnlWarning.Controls.Add(label4);
+            pnlWarning.Cursor = Cursors.Hand;
+            pnlWarning.Location = new Point(476, -6);
+            pnlWarning.Name = "pnlWarning";
+            pnlWarning.Size = new Size(430, 36);
+            pnlWarning.TabIndex = 16;
+            pnlWarning.Visible = false;
+            pnlWarning.Click += UpdateProductExpired;
+            // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.Cursor = Cursors.Hand;
+            label4.Font = new Font("Poppins", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            label4.ForeColor = Color.White;
+            label4.Location = new Point(19, 9);
+            label4.Name = "label4";
+            label4.Size = new Size(395, 23);
+            label4.TabIndex = 2;
+            label4.Tag = "1";
+            label4.Text = "Disa produkte nuk mund te paraqiten pasi janë të skaduara";
+            label4.Click += UpdateProductExpired;
+            // 
+            // panel2
+            // 
+            panel2.Controls.Add(Line);
+            panel2.Location = new Point(240, 70);
+            panel2.Name = "panel2";
+            panel2.Size = new Size(791, 10);
+            panel2.TabIndex = 15;
+            // 
+            // Line
+            // 
+            Line.BackColor = Color.White;
+            Line.Location = new Point(3, 0);
+            Line.Name = "Line";
+            Line.Size = new Size(106, 3);
+            Line.TabIndex = 8;
+            // 
+            // flowLayoutPanel3
+            // 
+            flowLayoutPanel3.Controls.Add(lblDashboard);
+            flowLayoutPanel3.Controls.Add(lblCategory);
+            flowLayoutPanel3.Controls.Add(lblStoku);
+            flowLayoutPanel3.Controls.Add(lblReport);
+            flowLayoutPanel3.Controls.Add(lblPorosia);
+            flowLayoutPanel3.Controls.Add(lblTavolinatControl);
+            flowLayoutPanel3.Controls.Add(lblPuntoret);
+            flowLayoutPanel3.Controls.Add(lblTjera);
+            flowLayoutPanel3.Location = new Point(240, 44);
+            flowLayoutPanel3.Name = "flowLayoutPanel3";
+            flowLayoutPanel3.Size = new Size(724, 25);
+            flowLayoutPanel3.TabIndex = 14;
+            // 
+            // lblDashboard
+            // 
+            lblDashboard.AutoSize = true;
+            lblDashboard.Cursor = Cursors.Hand;
+            lblDashboard.Font = new Font("Poppins", 12.75F, FontStyle.Regular, GraphicsUnit.Point);
+            lblDashboard.ForeColor = Color.White;
+            lblDashboard.Location = new Point(3, 0);
+            lblDashboard.Name = "lblDashboard";
+            lblDashboard.Size = new Size(106, 30);
+            lblDashboard.TabIndex = 1;
+            lblDashboard.Tag = "1";
+            lblDashboard.Text = "Dashboard";
+            lblDashboard.Click += ElementsDashboard;
+            // 
+            // lblCategory
+            // 
+            lblCategory.AutoSize = true;
+            lblCategory.Cursor = Cursors.Hand;
+            lblCategory.Font = new Font("Poppins", 12.75F, FontStyle.Regular, GraphicsUnit.Point);
+            lblCategory.ForeColor = Color.White;
+            lblCategory.Location = new Point(115, 0);
+            lblCategory.Name = "lblCategory";
+            lblCategory.Size = new Size(89, 30);
+            lblCategory.TabIndex = 2;
+            lblCategory.Tag = "2";
+            lblCategory.Text = "Kategorit";
+            lblCategory.Click += ElementsDashboard;
+            // 
+            // lblStoku
+            // 
+            lblStoku.AutoSize = true;
+            lblStoku.Cursor = Cursors.Hand;
+            lblStoku.Font = new Font("Poppins", 12.75F, FontStyle.Regular, GraphicsUnit.Point);
+            lblStoku.ForeColor = Color.White;
+            lblStoku.Location = new Point(210, 0);
+            lblStoku.Name = "lblStoku";
+            lblStoku.Size = new Size(60, 30);
+            lblStoku.TabIndex = 3;
+            lblStoku.Tag = "3";
+            lblStoku.Text = "Stoku";
+            lblStoku.Click += ElementsDashboard;
+            // 
+            // lblReport
+            // 
+            lblReport.AutoSize = true;
+            lblReport.Cursor = Cursors.Hand;
+            lblReport.Font = new Font("Poppins", 12.75F, FontStyle.Regular, GraphicsUnit.Point);
+            lblReport.ForeColor = Color.White;
+            lblReport.Location = new Point(276, 0);
+            lblReport.Name = "lblReport";
+            lblReport.Size = new Size(68, 30);
+            lblReport.TabIndex = 4;
+            lblReport.Tag = "4";
+            lblReport.Text = "Raport";
+            lblReport.Click += ElementsDashboard;
+            // 
+            // lblPorosia
+            // 
+            lblPorosia.AutoSize = true;
+            lblPorosia.Cursor = Cursors.Hand;
+            lblPorosia.Font = new Font("Poppins", 12.75F, FontStyle.Regular, GraphicsUnit.Point);
+            lblPorosia.ForeColor = Color.White;
+            lblPorosia.Location = new Point(350, 0);
+            lblPorosia.Name = "lblPorosia";
+            lblPorosia.Size = new Size(70, 30);
+            lblPorosia.TabIndex = 6;
+            lblPorosia.Tag = "5";
+            lblPorosia.Text = "Porosit";
+            lblPorosia.Click += ElementsDashboard;
+            // 
+            // lblTavolinatControl
+            // 
+            lblTavolinatControl.AutoSize = true;
+            lblTavolinatControl.Cursor = Cursors.Hand;
+            lblTavolinatControl.Font = new Font("Poppins", 12.75F, FontStyle.Regular, GraphicsUnit.Point);
+            lblTavolinatControl.ForeColor = Color.White;
+            lblTavolinatControl.Location = new Point(426, 0);
+            lblTavolinatControl.Name = "lblTavolinatControl";
+            lblTavolinatControl.Size = new Size(65, 30);
+            lblTavolinatControl.TabIndex = 9;
+            lblTavolinatControl.Tag = "6";
+            lblTavolinatControl.Text = "Shitjet";
+            lblTavolinatControl.Click += ElementsDashboard;
+            // 
+            // lblPuntoret
+            // 
+            lblPuntoret.AutoSize = true;
+            lblPuntoret.Cursor = Cursors.Hand;
+            lblPuntoret.Font = new Font("Poppins", 12.75F, FontStyle.Regular, GraphicsUnit.Point);
+            lblPuntoret.ForeColor = Color.White;
+            lblPuntoret.Location = new Point(497, 0);
+            lblPuntoret.Name = "lblPuntoret";
+            lblPuntoret.Size = new Size(85, 30);
+            lblPuntoret.TabIndex = 10;
+            lblPuntoret.Tag = "7";
+            lblPuntoret.Text = "Puntorët";
+            lblPuntoret.Click += ElementsDashboard;
+            // 
+            // lblTjera
+            // 
+            lblTjera.AutoSize = true;
+            lblTjera.ContextMenuStrip = contextMenuStrip1;
+            lblTjera.Cursor = Cursors.Hand;
+            lblTjera.Font = new Font("Poppins", 12.75F, FontStyle.Regular, GraphicsUnit.Point);
+            lblTjera.ForeColor = Color.White;
+            lblTjera.Location = new Point(588, 0);
+            lblTjera.Name = "lblTjera";
+            lblTjera.Size = new Size(76, 30);
+            lblTjera.TabIndex = 11;
+            lblTjera.Tag = "8";
+            lblTjera.Text = "Të tjera";
+            lblTjera.Click += ElementsDashboard;
+            // 
+            // contextMenuStrip1
+            // 
+            contextMenuStrip1.Items.AddRange(new ToolStripItem[] { testToolStripMenuItem, porositEFshirjaToolStripMenuItem, rrethSistemitToolStripMenuItem, lokacioniIRuajtejsSeDokumentaveToolStripMenuItem });
+            contextMenuStrip1.Name = "contextMenuStrip1";
+            contextMenuStrip1.Size = new Size(263, 92);
+            // 
+            // testToolStripMenuItem
+            // 
+            testToolStripMenuItem.Name = "testToolStripMenuItem";
+            testToolStripMenuItem.Size = new Size(262, 22);
+            testToolStripMenuItem.Text = "Profili";
+            testToolStripMenuItem.Click += testToolStripMenuItem_Click;
+            // 
+            // porositEFshirjaToolStripMenuItem
+            // 
+            porositEFshirjaToolStripMenuItem.Name = "porositEFshirjaToolStripMenuItem";
+            porositEFshirjaToolStripMenuItem.Size = new Size(262, 22);
+            porositEFshirjaToolStripMenuItem.Text = "Porosit e fshira";
+            porositEFshirjaToolStripMenuItem.Click += porositEFshirjaToolStripMenuItem_Click;
+            // 
+            // rrethSistemitToolStripMenuItem
+            // 
+            rrethSistemitToolStripMenuItem.Name = "rrethSistemitToolStripMenuItem";
+            rrethSistemitToolStripMenuItem.Size = new Size(262, 22);
+            rrethSistemitToolStripMenuItem.Text = "Rreth sistemit";
+            rrethSistemitToolStripMenuItem.Click += rrethSistemitToolStripMenuItem_Click;
+            // 
+            // lokacioniIRuajtejsSeDokumentaveToolStripMenuItem
+            // 
+            lokacioniIRuajtejsSeDokumentaveToolStripMenuItem.Name = "lokacioniIRuajtejsSeDokumentaveToolStripMenuItem";
+            lokacioniIRuajtejsSeDokumentaveToolStripMenuItem.Size = new Size(262, 22);
+            lokacioniIRuajtejsSeDokumentaveToolStripMenuItem.Text = "Lokacioni i ruajtejs se dokumentave";
+            lokacioniIRuajtejsSeDokumentaveToolStripMenuItem.Click += lokacioniIRuajtejsSeDokumentaveToolStripMenuItem_Click;
+            // 
+            // picMinimize
+            // 
+            picMinimize.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            picMinimize.Cursor = Cursors.Hand;
+            picMinimize.Image = Properties.Resources.icons8_minimize_40;
+            picMinimize.Location = new Point(1394, 2);
+            picMinimize.Name = "picMinimize";
+            picMinimize.Size = new Size(40, 40);
+            picMinimize.SizeMode = PictureBoxSizeMode.AutoSize;
+            picMinimize.TabIndex = 13;
+            picMinimize.TabStop = false;
+            picMinimize.Click += picMinimize_Click;
             // 
             // picClose
             // 
@@ -149,21 +374,13 @@
             picClose.TabStop = false;
             picClose.Click += picClose_Click;
             // 
-            // Line
-            // 
-            Line.BackColor = Color.White;
-            Line.Location = new Point(250, 68);
-            Line.Name = "Line";
-            Line.Size = new Size(106, 3);
-            Line.TabIndex = 8;
-            // 
             // lblNgarkimi
             // 
             lblNgarkimi.Anchor = AnchorStyles.Top;
             lblNgarkimi.AutoSize = true;
             lblNgarkimi.Font = new Font("Poppins", 8.75F, FontStyle.Regular, GraphicsUnit.Point);
             lblNgarkimi.ForeColor = Color.White;
-            lblNgarkimi.Location = new Point(637, 9);
+            lblNgarkimi.Location = new Point(1047, 3);
             lblNgarkimi.Name = "lblNgarkimi";
             lblNgarkimi.Size = new Size(157, 22);
             lblNgarkimi.TabIndex = 2;
@@ -181,16 +398,16 @@
             lblPuntori.TabIndex = 7;
             lblPuntori.Text = "Puntori: ";
             // 
-            // label7
+            // lblTime
             // 
-            label7.AutoSize = true;
-            label7.Font = new Font("Poppins", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
-            label7.ForeColor = Color.White;
-            label7.Location = new Point(16, 41);
-            label7.Name = "label7";
-            label7.Size = new Size(166, 23);
-            label7.TabIndex = 5;
-            label7.Text = "Powered by: V-Software";
+            lblTime.AutoSize = true;
+            lblTime.Font = new Font("Poppins", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            lblTime.ForeColor = Color.White;
+            lblTime.Location = new Point(16, 41);
+            lblTime.Name = "lblTime";
+            lblTime.Size = new Size(166, 23);
+            lblTime.TabIndex = 5;
+            lblTime.Text = "Powered by: V-Software";
             // 
             // label1
             // 
@@ -199,121 +416,9 @@
             label1.ForeColor = Color.White;
             label1.Location = new Point(12, 9);
             label1.Name = "label1";
-            label1.Size = new Size(131, 37);
+            label1.Size = new Size(144, 37);
             label1.TabIndex = 0;
-            label1.Text = "Coffe Shop";
-            // 
-            // lblPorosia
-            // 
-            lblPorosia.AutoSize = true;
-            lblPorosia.Cursor = Cursors.Hand;
-            lblPorosia.Font = new Font("Poppins", 12.75F, FontStyle.Regular, GraphicsUnit.Point);
-            lblPorosia.ForeColor = Color.White;
-            lblPorosia.Location = new Point(596, 41);
-            lblPorosia.Name = "lblPorosia";
-            lblPorosia.Size = new Size(70, 30);
-            lblPorosia.TabIndex = 6;
-            lblPorosia.Tag = "5";
-            lblPorosia.Text = "Porosit";
-            lblPorosia.Click += ElementsDashboard;
-            // 
-            // lblReport
-            // 
-            lblReport.AutoSize = true;
-            lblReport.Cursor = Cursors.Hand;
-            lblReport.Font = new Font("Poppins", 12.75F, FontStyle.Regular, GraphicsUnit.Point);
-            lblReport.ForeColor = Color.White;
-            lblReport.Location = new Point(522, 41);
-            lblReport.Name = "lblReport";
-            lblReport.Size = new Size(68, 30);
-            lblReport.TabIndex = 4;
-            lblReport.Tag = "4";
-            lblReport.Text = "Raport";
-            lblReport.Click += ElementsDashboard;
-            // 
-            // lblStoku
-            // 
-            lblStoku.AutoSize = true;
-            lblStoku.Cursor = Cursors.Hand;
-            lblStoku.Font = new Font("Poppins", 12.75F, FontStyle.Regular, GraphicsUnit.Point);
-            lblStoku.ForeColor = Color.White;
-            lblStoku.Location = new Point(456, 41);
-            lblStoku.Name = "lblStoku";
-            lblStoku.Size = new Size(60, 30);
-            lblStoku.TabIndex = 3;
-            lblStoku.Tag = "3";
-            lblStoku.Text = "Stoku";
-            lblStoku.Click += ElementsDashboard;
-            // 
-            // lblCategory
-            // 
-            lblCategory.AutoSize = true;
-            lblCategory.Cursor = Cursors.Hand;
-            lblCategory.Font = new Font("Poppins", 12.75F, FontStyle.Regular, GraphicsUnit.Point);
-            lblCategory.ForeColor = Color.White;
-            lblCategory.Location = new Point(361, 41);
-            lblCategory.Name = "lblCategory";
-            lblCategory.Size = new Size(89, 30);
-            lblCategory.TabIndex = 2;
-            lblCategory.Tag = "2";
-            lblCategory.Text = "Kategorit";
-            lblCategory.Click += ElementsDashboard;
-            // 
-            // lblDashboard
-            // 
-            lblDashboard.AutoSize = true;
-            lblDashboard.Cursor = Cursors.Hand;
-            lblDashboard.Font = new Font("Poppins", 12.75F, FontStyle.Regular, GraphicsUnit.Point);
-            lblDashboard.ForeColor = Color.White;
-            lblDashboard.Location = new Point(249, 41);
-            lblDashboard.Name = "lblDashboard";
-            lblDashboard.Size = new Size(106, 30);
-            lblDashboard.TabIndex = 1;
-            lblDashboard.Tag = "1";
-            lblDashboard.Text = "Dashboard";
-            lblDashboard.Click += ElementsDashboard;
-            // 
-            // lblTjera
-            // 
-            lblTjera.AutoSize = true;
-            lblTjera.Cursor = Cursors.Hand;
-            lblTjera.Font = new Font("Poppins", 12.75F, FontStyle.Regular, GraphicsUnit.Point);
-            lblTjera.ForeColor = Color.White;
-            lblTjera.Location = new Point(834, 41);
-            lblTjera.Name = "lblTjera";
-            lblTjera.Size = new Size(76, 30);
-            lblTjera.TabIndex = 11;
-            lblTjera.Tag = "8";
-            lblTjera.Text = "Të tjera";
-            lblTjera.Click += ElementsDashboard;
-            // 
-            // lblPuntoret
-            // 
-            lblPuntoret.AutoSize = true;
-            lblPuntoret.Cursor = Cursors.Hand;
-            lblPuntoret.Font = new Font("Poppins", 12.75F, FontStyle.Regular, GraphicsUnit.Point);
-            lblPuntoret.ForeColor = Color.White;
-            lblPuntoret.Location = new Point(743, 41);
-            lblPuntoret.Name = "lblPuntoret";
-            lblPuntoret.Size = new Size(85, 30);
-            lblPuntoret.TabIndex = 10;
-            lblPuntoret.Tag = "7";
-            lblPuntoret.Text = "Puntorët";
-            lblPuntoret.Click += ElementsDashboard;
-            // 
-            // lblTavolinatControl
-            // 
-            lblTavolinatControl.AutoSize = true;
-            lblTavolinatControl.Cursor = Cursors.Hand;
-            lblTavolinatControl.Font = new Font("Poppins", 12.75F, FontStyle.Regular, GraphicsUnit.Point);
-            lblTavolinatControl.ForeColor = Color.White;
-            lblTavolinatControl.Location = new Point(672, 41);
-            lblTavolinatControl.Name = "lblTavolinatControl";
-            lblTavolinatControl.Size = new Size(65, 30);
-            lblTavolinatControl.TabIndex = 9;
-            lblTavolinatControl.Tag = "6";
-            lblTavolinatControl.Text = "Shitjet";
-            lblTavolinatControl.Click += ElementsDashboard;
+            label1.Text = "Coffee Shop";
             // 
             // pnlKategorit
             // 
@@ -328,6 +433,7 @@
             // 
             // BodyCategory
             // 
+            BodyCategory.AutoScroll = true;
             BodyCategory.Dock = DockStyle.Fill;
             BodyCategory.Location = new Point(0, 58);
             BodyCategory.Name = "BodyCategory";
@@ -980,62 +1086,9 @@
             label3.TabIndex = 8;
             label3.Text = "Tiketa";
             // 
-            // pnlMenuDrop
+            // timer
             // 
-            pnlMenuDrop.BackColor = Color.FromArgb(49, 30, 95);
-            pnlMenuDrop.Controls.Add(label6);
-            pnlMenuDrop.Controls.Add(label5);
-            pnlMenuDrop.Controls.Add(label4);
-            pnlMenuDrop.Location = new Point(834, 72);
-            pnlMenuDrop.Name = "pnlMenuDrop";
-            pnlMenuDrop.Size = new Size(177, 128);
-            pnlMenuDrop.TabIndex = 13;
-            pnlMenuDrop.Visible = false;
-            // 
-            // label6
-            // 
-            label6.AutoSize = true;
-            label6.Cursor = Cursors.Hand;
-            label6.Font = new Font("Poppins", 12.75F, FontStyle.Regular, GraphicsUnit.Point);
-            label6.ForeColor = Color.White;
-            label6.Location = new Point(14, 82);
-            label6.Name = "label6";
-            label6.Size = new Size(129, 30);
-            label6.TabIndex = 14;
-            label6.Tag = "11";
-            label6.Text = "Rreth sistemit";
-            label6.TextAlign = ContentAlignment.TopCenter;
-            label6.Click += ElementsDashboard;
-            // 
-            // label5
-            // 
-            label5.AutoSize = true;
-            label5.Cursor = Cursors.Hand;
-            label5.Font = new Font("Poppins", 12.75F, FontStyle.Regular, GraphicsUnit.Point);
-            label5.ForeColor = Color.White;
-            label5.Location = new Point(14, 47);
-            label5.Name = "label5";
-            label5.Size = new Size(138, 30);
-            label5.TabIndex = 13;
-            label5.Tag = "10";
-            label5.Text = "Porosit e fshira";
-            label5.TextAlign = ContentAlignment.TopCenter;
-            label5.Click += ElementsDashboard;
-            // 
-            // label4
-            // 
-            label4.AutoSize = true;
-            label4.Cursor = Cursors.Hand;
-            label4.Font = new Font("Poppins", 12.75F, FontStyle.Regular, GraphicsUnit.Point);
-            label4.ForeColor = Color.White;
-            label4.Location = new Point(14, 14);
-            label4.Name = "label4";
-            label4.Size = new Size(122, 30);
-            label4.TabIndex = 12;
-            label4.Tag = "9";
-            label4.Text = "Konfigurimet";
-            label4.TextAlign = ContentAlignment.TopCenter;
-            label4.Click += ElementsDashboard;
+            timer.Tick += timer_Tick;
             // 
             // Form1
             // 
@@ -1043,7 +1096,6 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(49, 30, 95);
             ClientSize = new Size(1474, 810);
-            Controls.Add(pnlMenuDrop);
             Controls.Add(TicketPanel);
             Controls.Add(Body);
             Controls.Add(panel3);
@@ -1056,6 +1108,13 @@
             Load += Form1_Load;
             pnlTop.ResumeLayout(false);
             pnlTop.PerformLayout();
+            pnlWarning.ResumeLayout(false);
+            pnlWarning.PerformLayout();
+            panel2.ResumeLayout(false);
+            flowLayoutPanel3.ResumeLayout(false);
+            flowLayoutPanel3.PerformLayout();
+            contextMenuStrip1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)picMinimize).EndInit();
             ((System.ComponentModel.ISupportInitialize)picClose).EndInit();
             pnlKategorit.ResumeLayout(false);
             panel6.ResumeLayout(false);
@@ -1072,8 +1131,6 @@
             panel1.PerformLayout();
             flowLayoutPanel2.ResumeLayout(false);
             flowLayoutPanel2.PerformLayout();
-            pnlMenuDrop.ResumeLayout(false);
-            pnlMenuDrop.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -1112,7 +1169,7 @@
         private Panel Line;
         private Label lblPuntori;
         private Label lblPorosia;
-        private Label label7;
+        private Label lblTime;
         private Label lblReport;
         private Label lblStoku;
         private Label lblCategory;
@@ -1131,8 +1188,6 @@
         private FlowLayoutPanel flowLayoutPanel2;
         private Panel panel1;
         private PictureBox picClose;
-        private Panel pnlMenuDrop;
-        private Label label6;
         private Label label5;
         private Label label4;
         private Panel pnlTotalRows;
@@ -1144,5 +1199,15 @@
         private DataGridViewTextBoxColumn Price;
         private DataGridViewTextBoxColumn Total;
         private DataGridViewButtonColumn btnLargo;
+        private System.Windows.Forms.Timer timer;
+        private PictureBox picMinimize;
+        private FlowLayoutPanel flowLayoutPanel3;
+        private Panel panel2;
+        private ContextMenuStrip contextMenuStrip1;
+        private ToolStripMenuItem testToolStripMenuItem;
+        private ToolStripMenuItem porositEFshirjaToolStripMenuItem;
+        private ToolStripMenuItem rrethSistemitToolStripMenuItem;
+        private ToolStripMenuItem lokacioniIRuajtejsSeDokumentaveToolStripMenuItem;
+        private Panel pnlWarning;
     }
 }

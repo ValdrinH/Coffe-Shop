@@ -33,7 +33,7 @@
             lblDataOra = new Label();
             lblTavolina = new Label();
             lblInvoice = new Label();
-            label2 = new Label();
+            lblTitle = new Label();
             groupBox2 = new GroupBox();
             txtDetajet = new TextBox();
             btnFshije = new Button();
@@ -94,15 +94,15 @@
             lblInvoice.TabIndex = 1;
             lblInvoice.Text = "Invoice: INV_1234567";
             // 
-            // label2
+            // lblTitle
             // 
-            label2.AutoSize = true;
-            label2.Location = new Point(56, 19);
-            label2.Name = "label2";
-            label2.Size = new Size(221, 30);
-            label2.TabIndex = 2;
-            label2.Text = "Për të fshir porosin ju duhet të plotësoni \r\nkëto të dhëna më posht!";
-            label2.TextAlign = ContentAlignment.MiddleCenter;
+            lblTitle.AutoSize = true;
+            lblTitle.Location = new Point(56, 19);
+            lblTitle.Name = "lblTitle";
+            lblTitle.Size = new Size(221, 30);
+            lblTitle.TabIndex = 2;
+            lblTitle.Text = "Për të fshir porosin ju duhet të plotësoni \r\nkëto të dhëna më posht!";
+            lblTitle.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // groupBox2
             // 
@@ -158,7 +158,7 @@
             Controls.Add(btnAnulo);
             Controls.Add(btnFshije);
             Controls.Add(groupBox2);
-            Controls.Add(label2);
+            Controls.Add(lblTitle);
             Controls.Add(groupBox1);
             MaximizeBox = false;
             MaximumSize = new Size(355, 487);
@@ -183,7 +183,7 @@
 
         private Label lblPuntori;
         private GroupBox groupBox1;
-        private Label label2;
+        private Label lblTitle;
         private Label lblDataOra;
         private Label lblTavolina;
         private Label lblInvoice;

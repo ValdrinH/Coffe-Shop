@@ -16,6 +16,7 @@ namespace Coffe_Shop.UserControls
         int[] rowIndexHide = null;
         public Action<int> action = null;
         public Action<int, DateTime> selectSale = null;
+        bool onlyQuerr = false;
         public DatagridviewControl(DataTable source, Buttonat buttonat, Action<int> action)
         {
             InitializeComponent();
@@ -33,7 +34,19 @@ namespace Coffe_Shop.UserControls
             this.rowIndexHide = rowIndexHide;
             this.colName = colName;
             size = fixSize;
+            onlyQuerr = false;
         }
+        public DatagridviewControl(DataTable source, Buttonat buttonat, Action<int> action, string Querry)
+        {
+            InitializeComponent();
+            dataGridView.DataSource = source;
+            GetVisibleButtons(buttonat);
+            this.action = action;
+            querry = Querry;
+            onlyQuerr = true;
+
+        }
+
         public DatagridviewControl(DataTable source, Buttonat buttonat, Action<int, DateTime> action, string Querry, int[] rowIndexHide, string colName, int fixSize)
         {
             InitializeComponent();
@@ -44,6 +57,20 @@ namespace Coffe_Shop.UserControls
             this.rowIndexHide = rowIndexHide;
             this.colName = colName;
             size = fixSize;
+            onlyQuerr = false;
+        }
+
+        public void RefreshRows()
+        {
+            try
+            {
+                if (querry != "")
+                    TaskAsync();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Gabim", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void GetVisibleButtons(Buttonat buttonat)
@@ -123,6 +150,8 @@ namespace Coffe_Shop.UserControls
             // Kontrollo se a është klikuar rreshti dhe jo ndonjë header ose kolonë tjetër
             if (e.RowIndex >= 0)
             {
+                if (dataGridView.Rows.Count <= 0)
+                    return;
                 // Merr vlerat e të gjitha kolonave në rreshtin e zgjedhur
                 DataGridViewRow selectedRow = dataGridView.Rows[e.RowIndex];
 
@@ -154,12 +183,23 @@ namespace Coffe_Shop.UserControls
         }
         private async Task TaskAsync()
         {
-            gridView.DataSource = await CRUDOperationsInterpretor.MethodAsyncTable(new SQLDatabaseOperations().SelectDataAsync, querry, "Po ngarkohen...", this);
-            foreach (int item in rowIndexHide)
+            try
             {
-                gridView.Columns[item].Visible = false;
+                gridView.DataSource = await CRUDOperationsInterpretor.MethodAsyncTable(new SQLDatabaseOperations().SelectDataAsync, querry, "Po ngarkohen...", this);
+
+                if (onlyQuerr)
+                    return;
+
+                foreach (int item in rowIndexHide)
+                {
+                    gridView.Columns[item].Visible = false;
+                }
+                SetColumnsSize(colName, size);
             }
-            SetColumnsSize(colName, size);
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Gabim", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void button1_Click(object sender, EventArgs e)

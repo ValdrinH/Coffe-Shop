@@ -52,7 +52,7 @@
             // btnRuaj
             // 
             btnRuaj.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            btnRuaj.BackColor = Color.FromArgb(28, 209, 123);
+            btnRuaj.BackColor = Color.FromArgb(0, 64, 0);
             btnRuaj.FlatStyle = FlatStyle.Flat;
             btnRuaj.Font = new Font("Poppins", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
             btnRuaj.ForeColor = Color.White;

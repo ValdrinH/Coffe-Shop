@@ -7,10 +7,13 @@ namespace Coffe_Shop.Forms
 {
     public partial class FshiPorosin : Form
     {
+        private int _id;
         private string Tavolina { get; set; }
         private string Invoice { get; set; }
         private string DataOra { get; set; }
+        bool forDelete = false;
 
+        //Nese thirret konstruktori i pare atehere eshte per fshirjen e porosis aktuale
         public FshiPorosin(string invoice, string tavolina, string dataOra)
         {
             InitializeComponent();
@@ -23,6 +26,33 @@ namespace Coffe_Shop.Forms
             lblDataOra.Text = "Data/Ora e Porosis: " + dataOra;
             lblInvoice.Text = "Invoice: " + invoice;
             lblTavolina.Text = "Tavolina: " + Tavolina;
+            lblTitle.Text = "Për të fshir porosin ju duhet të plotësoni \r\nkëto të dhëna më posht!";
+            forDelete = false;
+        }
+
+        //Nese thirret konstruktori i dyte atehere eshte per fshirjen e porosis se fshire
+        public FshiPorosin(int id, string Puntori, string invoice, string tavolina, string dataOra, DateTime dateTime, string detajet)
+        {
+            InitializeComponent();
+
+            _id = id;
+            Invoice = invoice;
+            DataOra = dataOra;
+            Tavolina = tavolina;
+            lblPuntori.Text = "Puntori: " + Puntori;
+            lblDataOra.Text = "Data/Ora e Porosis: " + dataOra;
+            lblInvoice.Text = "Invoice: " + invoice;
+            lblTavolina.Text = "Tavolina: " + Tavolina;
+            lblTitle.Text = $"Fshirja e porosis me datë \r\n{dateTime.ToString("dd MMM, yyyy")}";
+            txtDetajet.Text = detajet;
+            txtDetajet.ReadOnly = true;
+            forDelete = true;
+        }
+
+        protected override void OnLoad(EventArgs e)
+        {
+            lblTitle.Location = new Point((Width - lblTitle.Width) / 2, lblTitle.Location.Y);
+            base.OnLoad(e);
         }
 
         private void btnAnulo_Click(object sender, EventArgs e)
@@ -39,6 +69,12 @@ namespace Coffe_Shop.Forms
         {
             try
             {
+                if (forDelete)
+                {
+                    RemoveDeleteOrder();
+                    return;
+                }
+
                 if (txtDetajet.Text == "")
                 {
                     MessageBox.Show("Ju lutem shkruani detajet e fshirjes!");
@@ -54,6 +90,22 @@ namespace Coffe_Shop.Forms
             }
 
         }
+        //Per te larguar porosin e fshir nga databaza
+        private async Task RemoveDeleteOrder()
+        {
+            await CRUDOperationsInterpretor.MethodAsync(new SQLDatabaseOperations().CRUDDataBaseWithParam, "RemoveDeletedOrder",
+                         new System.Data.SqlClient.SqlParameter[]
+                         {
+                                new System.Data.SqlClient.SqlParameter("@Id",_id),
+
+                         },
+         "Duke u fshir...", this
+                      );
+            await Task.Delay(20);
+            DialogResult = DialogResult.OK;
+        }
+
+        //Per te fshir porosin aktuale ne sistem
         private async Task DeleteOrder()
         {
             await CRUDOperationsInterpretor.MethodAsync(new SQLDatabaseOperations().CRUDDataBaseWithParam, "DeleteOrder",

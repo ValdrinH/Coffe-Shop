@@ -1,13 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+﻿using System.Runtime.InteropServices;
 
 namespace Coffe_Shop
 {
@@ -37,11 +28,11 @@ namespace Coffe_Shop
 
         protected override void OnLoad(EventArgs e)
         {
-            foreach(Control item in this.Controls)
+            foreach (Control item in Controls)
             {
-                item.Location = new Point((this.Width - item.Width) / 2, item.Location.Y);
+                item.Location = new Point((Width - item.Width) / 2, item.Location.Y);
             }
-            this.StartPosition = FormStartPosition.CenterParent;
+            StartPosition = FormStartPosition.CenterParent;
             StartTaskAsync();
 
             base.OnLoad(e);
@@ -56,7 +47,7 @@ namespace Coffe_Shop
 
             if (completedTask == taskToRun)
             {
-                await DelayAndSetResultAsync(DialogResult.OK, TimeSpan.FromSeconds(0.45));
+                await DelayAndSetResultAsync(DialogResult.OK, TimeSpan.FromSeconds(0.28));
             }
             else if (taskToRun.IsCanceled)
             {
@@ -65,18 +56,18 @@ namespace Coffe_Shop
             else
             {
                 // Tasku ka përfunduar me gabime ose ka kaluar timeout
-                this.DialogResult = DialogResult.Retry;
+                DialogResult = DialogResult.Retry;
                 // Këtu mund të trajtoni gabimet ose timeout-in
                 //MessageBox.Show("Procesi ka dështuar ju lutem provoni përsëri!", "Deshtoj", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
-            this.Close();
+            Close();
         }
         async Task DelayAndSetResultAsync(DialogResult result, TimeSpan delay)
         {
             await Task.Delay(delay);
-            this.DialogResult = result;
-            this.Close();
+            DialogResult = result;
+            Close();
         }
         private void LoadingScreenControl_Load(object sender, EventArgs e)
         {

@@ -1,14 +1,6 @@
 ﻿using Coffe_Shop.Classes;
 using Coffe_Shop.Classes.DataBase;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace Coffe_Shop.UserControls.CategoryControlElements
 {
@@ -19,15 +11,22 @@ namespace Coffe_Shop.UserControls.CategoryControlElements
         public CategoryControlList()
         {
             InitializeComponent();
+
             Action<int> action = (int Id) =>
             {
-                // Kodi që do të kryhet me parameterin 'Id'
-                
+                DataGridViewRow row = datagridviewContro.gridView.Rows
+               .Cast<DataGridViewRow>()
+               .FirstOrDefault(r => r.Cells["IdCategory"].Value != null && (int)r.Cells["IdCategory"].Value == Id);
+                VarClass.ShowUseForm(new CategoriesDetails(Id, row.Cells["Kategoria"].Value.ToString(), row.Cells["Përshkrimi"].Value.ToString()), "Detajet e Kategoris");
+                RefreshGridView();
             };
 
-
-            datagridviewContro = new DatagridviewControl(new DataTable(), DatagridviewControl.Buttonat.Delte, action);
+            datagridviewContro = new DatagridviewControl(new DataTable(), DatagridviewControl.Buttonat.Delte, action, "Exec LoadAllCategories");
             gridView = datagridviewContro.gridView;
+        }
+        private void RefreshGridView()
+        {
+            datagridviewContro.RefreshRows();
         }
 
         private void CategoryControlList_Load(object sender, EventArgs e)
@@ -40,7 +39,7 @@ namespace Coffe_Shop.UserControls.CategoryControlElements
         }
         private async Task LoadAllCategories()
         {
-            datagridviewContro.gridView.DataSource = await CRUDOperationsInterpretor.MethodAsyncTable(new SQLDatabaseOperations().SelectDataAsync, "LoadAllCategories","Po ngarkohen...", this);
+            datagridviewContro.gridView.DataSource = await CRUDOperationsInterpretor.MethodAsyncTable(new SQLDatabaseOperations().SelectDataAsync, "LoadAllCategories", "Po ngarkohen...", this);
             datagridviewContro.gridView.Columns[0].Visible = false;
         }
 

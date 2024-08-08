@@ -1,5 +1,6 @@
 ﻿using Coffe_Shop.Classes.DataBase;
 using Coffe_Shop.Classes.Employee;
+using Coffe_Shop.Classes.Profile;
 using Coffe_Shop.Forms;
 using System.Data.SqlClient;
 using System.Drawing.Printing;
@@ -91,9 +92,9 @@ namespace Coffe_Shop.Classes
         {
             // Define variables
             // Define variables
-            string shopName = "COFFEE SHOP SYSTEM";
-            string address = "1-2-3, Halaman Taman Indah\nJalan halaman 1, 11052\nJohnwein, Penang";
-            string telFax = "Tel: 019-1231231 Fax: 04-41231231";
+            string shopName = string.IsNullOrEmpty(CoffeProfileValues.Name) ? "COFFEE SHOP" : CoffeProfileValues.Name.ToUpper();
+            string address = string.IsNullOrEmpty(CoffeProfileValues.Address) ? "N/A" : CoffeProfileValues.Address.ToUpper();
+            string telFax = string.IsNullOrEmpty(CoffeProfileValues.Phone) ? "N/A" : CoffeProfileValues.Phone;
             string cashier = EmployDetails.EmpName;
             string receiptNo = invoiceNumber;
             string dateTime = DateTime.Now.ToString("dd/MM/yy | hh:mm tt");
