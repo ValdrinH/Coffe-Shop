@@ -13,6 +13,13 @@ namespace Coffe_Shop.Classes
         public static void SetLeftPanel(FlowLayoutPanel panel) { LeftSide = panel; }
         public static void SetDashboardPanel(Panel panel) { dashboardControl = panel; }
 
+        public static void UpdateButtonName(string name, int Id)
+        {
+            var selectedButton = LeftSide.Controls.OfType<Button>()
+               .FirstOrDefault(button => button.Tag.ToString() == Id.ToString());
+
+            selectedButton.Text = name;
+        }
 
         public static void AddButtons(string Text, int Id)
         {

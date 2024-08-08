@@ -1,11 +1,14 @@
 using Coffe_Shop.Classes;
 using Coffe_Shop.Classes.DataBase;
 using Coffe_Shop.Classes.Employee;
+using Coffe_Shop.Classes.Profile;
 using Coffe_Shop.UserControls;
 using Coffe_Shop.UserControls.CategoryControlElements;
+using Coffe_Shop.UserControls.CoffeProfile;
 using Coffe_Shop.UserControls.DashboardElementsControl;
 using Coffe_Shop.UserControls.DashboardElementsControl.ElementControl;
 using Coffe_Shop.UserControls.Porosit;
+using Coffe_Shop.UserControls.Porosit.PorositEFshijra;
 using Coffe_Shop.UserControls.Punetoret;
 using Coffe_Shop.UserControls.SalesElement;
 using Coffe_Shop.UserControls.StockElements;
@@ -25,6 +28,8 @@ namespace Coffe_Shop
         SaleControl saleControl = new SaleControl();
         ListofEmployees employees = new ListofEmployees();
         RrethSistemit about = new RrethSistemit();
+        ControlProfile profile = new ControlProfile();
+        ListOfDeleteOrders deleteOrders = new ListOfDeleteOrders();
 
         string total = "";
         bool firsTime = true;
@@ -44,6 +49,7 @@ namespace Coffe_Shop
         {
             DatagridviewOrder.Order = dataGridView;
             FormParentElements.ParentForm = this;
+            FormParentElements.WarngingPanel = pnlWarning;
             FormParentElements.lblTavolina = lblTavolina;
             FormParentElements.pnls = new List<Panel>()
             {
@@ -53,12 +59,14 @@ namespace Coffe_Shop
             CallUserControl(new AlertControls());
             CategoriesLeftPanelControls.SetLeftPanel(BodyCategory);
             CategoriesLeftPanelControls.SetDashboardPanel(Body);
-            CategoriesLeftPanelControls.AddButtons("TÃ« Gjitha", 0);
+            CategoriesLeftPanelControls.AddButtons("Të Gjitha", 0);
             EmployDetails.lblNameEmployee = lblPuntori;
 
+            pnlWarning.Location = new Point((pnlTop.Width - pnlWarning.Width) / 2, pnlWarning.Location.Y);
 
             LoadAllButtons();
 
+            timer.Start();
             base.OnLoad(e);
         }
 
@@ -131,7 +139,7 @@ namespace Coffe_Shop
                     }
                     else
                     {
-                        MessageBox.Show("Ju lutem kyquni nÃ« sistem...", "Gabim", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("Ju lutem kyquni në sistem...", "Gabim", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                     break;
                 case 6:
@@ -142,6 +150,12 @@ namespace Coffe_Shop
         }
         public void CallUserControl(UserControl uc)
         {
+            if (uc is Dashboard dsh)
+            {
+                dashboard = new Dashboard();
+                uc = dashboard;
+                updateElementsIfExistAnyRow(dashboard);
+            }
             Body.Controls.Clear();
             uc.Dock = DockStyle.Fill;
             Body.Controls.Add(uc);
@@ -150,7 +164,7 @@ namespace Coffe_Shop
         {
             var lbl = (Label)sender;
 
-            if (int.Parse(lbl.Tag.ToString()) <= 8)
+            if (int.Parse(lbl.Tag.ToString()) < 8)
             {
                 Line.Width = lbl.Width;
                 Line.Location = new Point(lbl.Location.X, Line.Location.Y);
@@ -164,14 +178,11 @@ namespace Coffe_Shop
         }
         private void LoadUser(int IdUser)
         {
-            if (IdUser != 8)
-                pnlMenuDrop.Visible = false;
-
+            FormParentElements.ChangeVisibilityForWarning(false);
             switch (IdUser)
             {
                 case 1:
                     dashboard = new Dashboard();
-                    updateElementsIfExistAnyRow(dashboard);
                     CallUserControl(dashboard);
                     FormParentElements.LastControl = dashboard;
                     break;
@@ -202,19 +213,12 @@ namespace Coffe_Shop
                     FormParentElements.LastControl = employees;
                     break;
                 case 8:
-                    pnlMenuDrop.Location = new Point(lblTjera.Location.X, pnlMenuDrop.Location.Y);
-                    pnlMenuDrop.Visible = !pnlMenuDrop.Visible;
-                    break;
-                case 9:
+                    Point menuPosition = new Point(lblTjera.Location.X + 200, lblTjera.Location.Y + 40 + lblTjera.Height);
 
+                    // Shfaq ContextMenuStrip në pozicionin e llogaritur
+                    contextMenuStrip1.Show(menuPosition);
                     break;
-                case 10:
 
-                    break;
-                case 11:
-                    about = new RrethSistemit();
-                    CallUserControl(about);
-                    break;
             }
         }
         void updateElementsIfExistAnyRow(Dashboard dsh)
@@ -243,6 +247,13 @@ namespace Coffe_Shop
                     }));
                 });
             }
+            else
+            {
+                foreach (Elements item in dsh.flowLayoutPanel.Controls)
+                {
+                    item.isSelected = false;
+                }
+            }
         }
         private void txtTextCalculator_KeyPress(object sender, KeyPressEventArgs e)
         {
@@ -260,6 +271,7 @@ namespace Coffe_Shop
             TotalPagesa();
             if (dataGridView.Rows.Count == 0)
             {
+                updateElementsIfExistAnyRow(dashboard);
                 pnlTotalRows.Visible = true;
             }
         }
@@ -272,13 +284,13 @@ namespace Coffe_Shop
                  .Cast<DataGridViewRow>()
                  .Sum(row => Convert.ToDecimal(row.Cells["Total"].Value));
 
-                lblTotal.Text = "Totali: " + sum.ToString("0.00") + "â‚¬";
-                total = sum.ToString("0.00") + "â‚¬";
+                lblTotal.Text = "Totali: " + sum.ToString("0.00") + "€";
+                total = sum.ToString("0.00") + "€";
             }
             else
             {
-                lblTotal.Text = "Totali: 0.00â‚¬";
-                total = "0.00â‚¬";
+                lblTotal.Text = "Totali: 0.00€";
+                total = "0.00€";
 
             }
         }
@@ -303,7 +315,7 @@ namespace Coffe_Shop
             }
 
             dataGridView.Rows.Clear();
-            FormParentElements.lblTavolina.Text = "Nuk ka tavolinÃ«";
+            FormParentElements.lblTavolina.Text = "Nuk ka tavolinë";
             VarClass.TableSelected = -1;
         }
 
@@ -322,9 +334,15 @@ namespace Coffe_Shop
         {
             try
             {
-                if (txtTextCalculator.Text == "0")
+                //Set Line to Dashboard loaction
+                Line.Width = lblDashboard.Width;
+                Line.Location = new Point(lblDashboard.Location.X, Line.Location.Y);
+
+
+
+                if (txtTextCalculator.Text == "0" && btnKyqu.Text != "Shkyqu")
                 {
-                    MessageBox.Show("Ju lutem kontrolloni fushÃ«n e ID-s.", "Gabim", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Ju lutem kontrolloni fushën e ID-s.", "Gabim", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
 
@@ -356,24 +374,31 @@ namespace Coffe_Shop
 
                 if (dt.Rows.Count == 0)
                 {
-                    MessageBox.Show("Puntori me kÃ«tÃ« ID Kart nuk ekziston. Ju lutem kotaktojeni Administratorin", "Gabim", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Puntori me këtë ID Kart nuk ekziston. Ju lutem kotaktojeni Administratorin", "Gabim", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
+                txtTextCalculator.Text = "0";
 
                 DataRow dr = dt.AsEnumerable().FirstOrDefault();
 
                 if (dr.Field<int>("Statusi") == 0)
                 {
-                    MessageBox.Show("Puntori me kÃ«tÃ« ID Kart Ã«shtÃ« deaktiv. Ju lutem kotaktojeni Administratorin", "Llogaria Deaktive", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Puntori me këtë ID Kart është deaktiv. Ju lutem kotaktojeni Administratorin", "Llogaria Deaktive", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
 
                 EmployDetails.SetValues(dr.Field<int>("EmpId"), dr.Field<string>("EmpName"), dr.Field<string>("EmpEmil"), dr.Field<int>("IdKarta"), dr.Field<int>("Pozita"));
-                ChangeVisibleNavbarItems(dr.Field<int>("Pozita"));
                 btnKyqu.Text = "Shkyqu";
                 btnKyqu.BackColor = Color.Red;
                 FormParentElements.LoginIntoSystem(true);
+                ChangeVisibleNavbarItems(dr.Field<int>("Pozita"));
                 CallUserControl(dashboard);
+
+                DataTable profile = await CRUDOperationsInterpretor.MethodAsyncTable(new SQLDatabaseOperations().SelectDataAsync, "Exec GetProfile ", this);
+                foreach (DataRow row in profile.Rows)
+                {
+                    CoffeProfileValues.SetValues(int.Parse(row["Id"].ToString()), row["CoffeName"].ToString(), row["Address"].ToString(), row["Email"].ToString(), row["PhoneNumber"].ToString(), (byte[])row["Logo"]);
+                }
 
             }
             catch (Exception ex)
@@ -384,21 +409,22 @@ namespace Coffe_Shop
 
         private void ChangeVisibleNavbarItems(int roli)
         {
-
-
+            lblCategory.Visible = true;
+            lblStoku.Visible = true;
+            lblPuntoret.Visible = true;
+            porositEFshirjaToolStripMenuItem.Visible = true;
+            rrethSistemitToolStripMenuItem.Visible = true;
             switch (roli)
             {
                 case 3:
                 case 4:
-                    lblCategory.Enabled = false;
-                    lblStoku.Enabled = false;
-                    lblPuntoret.Enabled = false;
+                    lblCategory.Visible = false;
+                    lblStoku.Visible = false;
+                    lblPuntoret.Visible = false;
+                    porositEFshirjaToolStripMenuItem.Visible = false;
+                    rrethSistemitToolStripMenuItem.Visible = false;
                     break;
-
                 default:
-                    lblCategory.Enabled = true;
-                    lblStoku.Enabled = true;
-                    lblPuntoret.Enabled = true;
                     break;
             }
         }
@@ -407,12 +433,17 @@ namespace Coffe_Shop
         {
             try
             {
+                if (FormParentElements.lblTavolina.Text == "Nuk ka tavolinë")
+                {
+                    MessageBox.Show("Ju lutem zgjedheni tavolinën për porosi!", "Kujdes", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
                 var ord = new OrderClass();
                 ord.TotalPagesa = total;
                 LoadingScreenDialog.ShowLoadingScreen(ord.InsertOrederData(), "Po ngarkohet...", this);
                 DatagridviewOrder.ClearRows();
                 VarClass.TableSelected = -1;
-                FormParentElements.lblTavolina.Text = "Nuk ka tavolinÃ«";
+                FormParentElements.lblTavolina.Text = "Nuk ka tavolinë";
             }
             catch (Exception ex)
             {
@@ -426,7 +457,7 @@ namespace Coffe_Shop
 
         private void picClose_Click(object sender, EventArgs e)
         {
-            DialogResult drs = MessageBox.Show("DÃ«shiron tÃ« mbyllÃ«sh aplikacionin ?", "Pyetje", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            DialogResult drs = MessageBox.Show("Dëshiron të mbyllësh aplikacionin ?", "Pyetje", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (drs != DialogResult.Yes)
                 return;
 
@@ -464,6 +495,58 @@ namespace Coffe_Shop
 
                     dataGridView.Rows.RemoveAt(e.RowIndex);
                 }
+            }
+        }
+
+        private void timer_Tick(object sender, EventArgs e)
+        {
+            if (EmployDetails.inSystem)
+            {
+                lblTime.Text = DateTime.Now.ToString("HH : mm : ss");
+                lblTime.Font = new Font("Poppins", 12);
+            }
+            else
+            {
+                lblTime.Text = "Powered by: V-Software";
+                lblTime.Font = new Font("Poppins", (float)9.75);
+            }
+        }
+
+        private void picMinimize_Click(object sender, EventArgs e)
+        {
+            WindowState = FormWindowState.Minimized;
+        }
+
+        private void testToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            profile = new ControlProfile();
+            CallUserControl(profile);
+        }
+
+        private void porositEFshirjaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            deleteOrders = new ListOfDeleteOrders();
+            CallUserControl(deleteOrders);
+        }
+
+        private void rrethSistemitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            about = new RrethSistemit();
+            CallUserControl(about);
+        }
+
+        private void lokacioniIRuajtejsSeDokumentaveToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void UpdateProductExpired(object sender, EventArgs e)
+        {
+            DialogResult drs = VarClass.ShowUseForm(new ExpiredProducts(), "Produktet e skaduara");
+            if (drs == DialogResult.OK)
+            {
+                dashboard = new Dashboard();
+                CallUserControl(dashboard);
             }
         }
     }

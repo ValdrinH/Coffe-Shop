@@ -20,6 +20,7 @@ namespace Coffe_Shop.UserControls.DashboardElementsControl
         }
         private async Task GetTaskAsync()
         {
+
             try
             {
 
@@ -27,9 +28,14 @@ namespace Coffe_Shop.UserControls.DashboardElementsControl
 
                 await Task.Delay(50);
                 DataTable dt = await CRUDOperationsInterpretor.MethodAsyncTable(new SQLDatabaseOperations().SelectDataAsync, "Exec LoadStock @WichForm = 1", this);
-
+                int expireProductCount = 0;
                 foreach (DataRow row in dt.Rows)
                 {
+                    if (DateTime.Now > DateTime.Parse(row["DataSkadimit"].ToString()))
+                    {
+                        expireProductCount++;
+                        continue;
+                    }
                     var element = new Elements()
                     {
                         Id = int.Parse(row[0].ToString()),
@@ -50,6 +56,7 @@ namespace Coffe_Shop.UserControls.DashboardElementsControl
                 isLoaded = true; //After load all elements to the control
                 await Task.Delay(50);
                 flowLayoutPanel.Visible = true;
+                FormParentElements.ChangeVisibilityForWarning((expireProductCount > 0));
             }
             catch (Exception ex)
             {

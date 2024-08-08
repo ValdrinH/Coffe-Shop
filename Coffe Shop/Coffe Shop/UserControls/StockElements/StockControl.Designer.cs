@@ -41,7 +41,6 @@
             label7 = new Label();
             txtPershkrimi = new TextBox();
             label8 = new Label();
-            picProduct = new PictureBox();
             tableLayoutPanel1 = new TableLayoutPanel();
             txtQmimiB = new TextBox();
             txtQmimiSh = new TextBox();
@@ -55,10 +54,11 @@
             label13 = new Label();
             txtSasia = new MaskedTextBox();
             label12 = new Label();
+            picProduct = new PictureBox();
             ((System.ComponentModel.ISupportInitialize)picBack).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)picProduct).BeginInit();
             tableLayoutPanel1.SuspendLayout();
             tableLayoutPanel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)picProduct).BeginInit();
             SuspendLayout();
             // 
             // picBack
@@ -212,20 +212,6 @@
             label8.Size = new Size(105, 30);
             label8.TabIndex = 41;
             label8.Text = "Përshkrimi:";
-            // 
-            // picProduct
-            // 
-            picProduct.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            picProduct.BorderStyle = BorderStyle.FixedSingle;
-            picProduct.Cursor = Cursors.Hand;
-            picProduct.Image = Properties.Resources.Screenshot_2023_12_16_163657;
-            picProduct.Location = new Point(547, 22);
-            picProduct.Name = "picProduct";
-            picProduct.Size = new Size(205, 193);
-            picProduct.SizeMode = PictureBoxSizeMode.StretchImage;
-            picProduct.TabIndex = 42;
-            picProduct.TabStop = false;
-            picProduct.Click += picProduct_Click;
             // 
             // tableLayoutPanel1
             // 
@@ -422,6 +408,20 @@
             label12.TabIndex = 49;
             label12.Text = "Fotografia";
             // 
+            // picProduct
+            // 
+            picProduct.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            picProduct.BorderStyle = BorderStyle.FixedSingle;
+            picProduct.Cursor = Cursors.Hand;
+            picProduct.Image = Properties.Resources.Screenshot_2023_12_16_163657;
+            picProduct.Location = new Point(547, 22);
+            picProduct.Name = "picProduct";
+            picProduct.Size = new Size(205, 193);
+            picProduct.SizeMode = PictureBoxSizeMode.StretchImage;
+            picProduct.TabIndex = 42;
+            picProduct.TabStop = false;
+            picProduct.Click += picProduct_Click;
+            // 
             // StockControl
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -444,11 +444,11 @@
             Size = new Size(804, 712);
             Load += StockControl_Load;
             ((System.ComponentModel.ISupportInitialize)picBack).EndInit();
-            ((System.ComponentModel.ISupportInitialize)picProduct).EndInit();
             tableLayoutPanel1.ResumeLayout(false);
             tableLayoutPanel1.PerformLayout();
             tableLayoutPanel2.ResumeLayout(false);
             tableLayoutPanel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)picProduct).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -468,7 +468,6 @@
         private Label label7;
         private TextBox txtPershkrimi;
         private Label label8;
-        private PictureBox picProduct;
         private Label label9;
         private TableLayoutPanel tableLayoutPanel1;
         private Label label10;
@@ -483,5 +482,6 @@
         private TextBox txtQmimiB;
         private TextBox txtQmimiSh;
         private Label label12;
+        private PictureBox picProduct;
     }
 }

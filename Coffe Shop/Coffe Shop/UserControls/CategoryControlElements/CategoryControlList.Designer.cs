@@ -38,7 +38,7 @@
             // button20
             // 
             button20.Anchor = AnchorStyles.Right;
-            button20.BackColor = Color.FromArgb(28, 209, 123);
+            button20.BackColor = Color.Green;
             button20.FlatStyle = FlatStyle.Flat;
             button20.Font = new Font("Poppins", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
             button20.ForeColor = Color.White;

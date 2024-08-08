@@ -11,6 +11,7 @@ namespace Coffe_Shop.Classes
     {
         public static UserControl LastControl;
         public static Form ParentForm;
+        public static Panel WarngingPanel;
         public static Label lblTavolina;
         public static List<Panel> pnls;
 
@@ -37,13 +38,35 @@ namespace Coffe_Shop.Classes
             frm.CallUserControl(newControl);
         }
 
+        public static void ChangeVisibilityForWarning(bool setVisibility)
+        {
+            WarngingPanel.Visible = setVisibility;
+        }
+
+
         /// <summary>
         /// Per te bere te gjitha controls enable false nese nuk eshte kyqur ose per te i bere enable true
         /// </summary>
         /// <param name="pnls"></param>
         public static void LoginIntoSystem(bool value)
         {
-            pnls.ForEach(panel => panel.Enabled = value);
+            pnls.ForEach(panel =>
+            {
+                if (panel.Name == "pnlTop")
+                {
+                    foreach (Control c in panel.Controls)
+                    {
+                        if (c.Name == "picClose" || c.Name == "picMinimize")
+                            continue;
+
+                        c.Enabled = value;
+                    }
+                }
+                else
+                {
+                    panel.Enabled = value;
+                }
+            });
         }
     }
 }

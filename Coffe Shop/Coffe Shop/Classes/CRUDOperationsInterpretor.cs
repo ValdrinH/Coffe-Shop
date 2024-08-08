@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
+﻿using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Coffe_Shop.Classes
 {
@@ -38,6 +33,13 @@ namespace Coffe_Shop.Classes
         {
             // Thirr metodën async duke përdorur delegate
             Task requestTask = Task.Run(() => func(Querry, parameters));
+        }
+
+
+        public static async Task MethodAsync(Func<string, Task> func, string Querry)
+        {
+            // Thirr metodën async duke përdorur delegate
+            Task requestTask = Task.Run(() => func(Querry));
         }
 
         /// <summary>

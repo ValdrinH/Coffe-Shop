@@ -133,6 +133,16 @@ namespace Coffe_Shop.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap icons8_minimize_40 {
+            get {
+                object obj = ResourceManager.GetObject("icons8-minimize-40", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap icons8_order_64 {
             get {
                 object obj = ResourceManager.GetObject("icons8-order-64", resourceCulture);
@@ -176,6 +186,16 @@ namespace Coffe_Shop.Properties {
         internal static System.Drawing.Bitmap icons8_time_30 {
             get {
                 object obj = ResourceManager.GetObject("icons8-time-30", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Logo {
+            get {
+                object obj = ResourceManager.GetObject("Logo", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
